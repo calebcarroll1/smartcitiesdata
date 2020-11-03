@@ -22,7 +22,7 @@ The platform is a combination of Elixir micro services custom built to ingest, n
 persist, and stream data from numerous sources, orchestrated via Kubernetes in any cloud provider or
 on-prem Kubernetes deployment. The loosely coupled services pass data across the pipeline via Kafka
 message queues and persist data to any hyper-scalable object store providing the S3 standard. They
-coordinate and communicate via a single event bus, also running on top of Kafka. The distributed data
+coordinate and communicate via a single event bus called the event stream, also running on top of Kafka. The distributed data
 files are persisted and retrieved via SQL queries processed by the PrestoDB engine.
 Finally, user access, discovery, and analysis is facilitated by a ReactJS web application user interface,
 a RESTful API, or a web socket API for streaming data feeds.
