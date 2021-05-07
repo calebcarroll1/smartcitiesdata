@@ -9,6 +9,7 @@ defmodule Reaper.SecretRetriever do
   @root_path "secrets/smart_city/"
 
   getter(:secrets_endpoint, generic: true)
+  getter(:vault_http_options)
 
   def retrieve_dataset_credentials(dataset_id) do
     retrieve("ingestion/#{dataset_id}")
@@ -44,7 +45,8 @@ defmodule Reaper.SecretRetriever do
       engine: Vault.Engine.KVV1,
       auth: Vault.Auth.Kubernetes,
       host: secrets_endpoint(),
-      token_expires_at: set_login_ttl(20, :second)
+      token_expires_at: set_login_ttl(20, :second),
+      http_options: [adapter: {Tesla.Adapter.Hackney, ssl_options: [cacertfile: ""]}]
     )
     |> Vault.auth(%{role: "reaper-role", jwt: token})
   end

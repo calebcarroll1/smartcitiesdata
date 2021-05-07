@@ -47,6 +47,18 @@ if System.get_env("RUN_IN_KUBERNETES") do
     ]
 end
 
+if System.get_env("CA_CERT_FILE") do
+  config :reaper,
+    vault_http_options: [
+      adapter: {
+        Tesla.Adapter.Hackney,
+        ssl_options: [
+          cacertfile: System.get_env("CA_CERT_FILE")
+        ]
+      }
+    ]
+end
+
 config :reaper,
   secrets_endpoint: System.get_env("SECRETS_ENDPOINT"),
   elsa_brokers: endpoints,
